@@ -4,37 +4,27 @@ import 'package:tutorial_coach_mark/src/target/target_position.dart';
 
 enum ShapeLightFocus { Circle, RRect }
 
-TargetPosition? getTargetCurrent(TargetFocus target) {
+TargetPosition getTargetCurrent(TargetFocus target) {
   if (target.keyTarget != null) {
-    var key = target.keyTarget!;
+    var key = target.keyTarget;
 
     try {
-      final RenderBox renderBoxRed =
-          key.currentContext!.findRenderObject() as RenderBox;
+      final RenderBox renderBoxRed = key.currentContext.findRenderObject();
       final size = renderBoxRed.size;
-      final state =
-          key.currentContext!.findAncestorStateOfType<NavigatorState>();
+      final state = key.currentContext.findAncestorStateOfType<NavigatorState>();
       Offset offset;
       if (state != null) {
-        offset = renderBoxRed.localToGlobal(Offset.zero,
-            ancestor: state.context.findRenderObject());
+        offset = renderBoxRed.localToGlobal(Offset.zero, ancestor: state.context.findRenderObject());
       } else {
         offset = renderBoxRed.localToGlobal(Offset.zero);
       }
 
       return TargetPosition(size, offset);
     } catch (e) {
-      print(
-          "TutorialCoachMark (ERROR): It was not possible to obtain target position.");
+      print("TutorialCoachMark (ERROR): It was not possible to obtain target position.");
       return null;
     }
   } else {
     return target.targetPosition;
   }
-}
-
-abstract class TutorialCoachMarkController {
-  void next();
-  void previous();
-  void skip();
 }
