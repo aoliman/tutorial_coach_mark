@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tutorial_coach_mark/src/target/target_content.dart';
-import 'package:tutorial_coach_mark/src/target/target_focus.dart';
-import 'package:tutorial_coach_mark/src/target/target_position.dart';
-import 'package:tutorial_coach_mark/src/util.dart';
-import 'package:tutorial_coach_mark/src/widgets/animated_focus_light.dart';
+import '../target/target_content.dart';
+import '../target/target_focus.dart';
+import '../target/target_position.dart';
+import '../util.dart';
+import 'animated_focus_light.dart';
 
 class TutorialCoachMarkWidget extends StatefulWidget {
   const TutorialCoachMarkWidget({
@@ -86,13 +86,12 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
             duration: Duration(milliseconds: 300),
             child: _buildContents(),
           ),
+
           Container(child:
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
             _buildSkip(),
             _buildNext(),
-
-
-          ],),height: 50,)
+          ],),)
         ],
       ),
     );
@@ -219,8 +218,9 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
     );
   }
   Widget _buildNext() {
-
-    return  SafeArea(
+    return Align(
+      alignment: currentTarget?.alignSkip ?? widget.alignSkip,
+      child: SafeArea(
         child: AnimatedOpacity(
           opacity: showContent ? 1 : 0,
           duration: Duration(milliseconds: 300),
@@ -228,14 +228,14 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
             onTap: next,
             child: Padding(
               padding: const EdgeInsets.all(20.0),
-              child: Text(
-                "التالى",
+              child: Text("التالى",
                 style: widget.textStyleSkip,
               ),
             ),
           ),
         ),
-      );
+      ),
+    );
   }
 
 
