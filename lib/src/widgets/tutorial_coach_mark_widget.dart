@@ -31,7 +31,7 @@ class TutorialCoachMarkWidget extends StatefulWidget {
   final Color colorShadow;
   final double opacityShadow;
   final double paddingFocus;
-  final Function() onClickSkip;
+  final Function(TargetFocus) onClickSkip;
   final AlignmentGeometry alignSkip;
   final String textSkip;
   final TextStyle textStyleSkip;
@@ -204,7 +204,9 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
           opacity: showContent ? 1 : 0,
           duration: Duration(milliseconds: 300),
           child: InkWell(
-            onTap: widget.onClickSkip,
+            onTap: (){
+              widget.onClickSkip(currentTarget);
+            },
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Text(

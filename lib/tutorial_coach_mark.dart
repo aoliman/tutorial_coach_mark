@@ -15,7 +15,7 @@ class TutorialCoachMark {
   final Function(TargetFocus) onClickOverlay;
   final Function() onFinish;
   final double paddingFocus;
-  final Function() onSkip;
+  final Function(TargetFocus) onSkip;
   final AlignmentGeometry alignSkip;
   final String textSkip;
   final TextStyle textStyleSkip;
@@ -86,8 +86,8 @@ class TutorialCoachMark {
     _removeOverlay();
   }
 
-  void skip() {
-    onSkip?.call();
+  void skip(target) {
+    onSkip?.call(target);
     _removeOverlay();
   }
 
