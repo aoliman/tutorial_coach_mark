@@ -22,6 +22,10 @@ class TutorialCoachMarkWidget extends StatefulWidget {
     this.hideSkip,
     this.focusAnimationDuration,
     this.pulseAnimationDuration,
+    this.itemCount,
+    this.startItem,
+    this.selectItemColor,
+    this.unSelectItemColor
   }) : super(key: key);
 
   final List<TargetFocus> targets;
@@ -38,6 +42,10 @@ class TutorialCoachMarkWidget extends StatefulWidget {
   final bool hideSkip;
   final Duration focusAnimationDuration;
   final Duration pulseAnimationDuration;
+  final num itemCount;
+  final num startItem ;
+  final Color selectItemColor;
+  final Color unSelectItemColor;
 
   @override
   TutorialCoachMarkWidgetState createState() => TutorialCoachMarkWidgetState();
@@ -47,6 +55,12 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
   final GlobalKey<AnimatedFocusLightState> _focusLightKey = GlobalKey();
   bool showContent = false;
   TargetFocus currentTarget;
+  num currentController;
+  @override
+  void initState() {
+    super.initState();
+    currentController = widget.startItem;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,11 +82,13 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
             },
             clickOverlay: (target) {
               widget.clickOverlay?.call(target);
+              currentController += 1;
             },
             focus: (target) {
               setState(() {
                 currentTarget = target;
                 showContent = true;
+                currentController += 1;
               });
             },
             removeFocus: () {
@@ -90,6 +106,14 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
           Container(child:
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
             _buildSkip(),
+            Align(
+              alignment:Alignment.bottomCenter ,
+               child: Container(color: Colors.transparent,margin: EdgeInsets.only(bottom: 24),width: 70,height: 12,
+                 child: ListView.builder(itemBuilder: (context, index) {
+                   return Container(margin: EdgeInsets.all(2),decoration: BoxDecoration(color: index == currentController? widget.selectItemColor ?? Colors.black.withOpacity(0.5): widget.unSelectItemColor ?? Colors.white,borderRadius: BorderRadius.circular(8)),height: 16,width: 8,);
+                 },itemCount:widget.itemCount ,scrollDirection: Axis.horizontal,),
+               ),
+             ),
             _buildNext(),
           ],),)
         ],
@@ -244,6 +268,10 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
   void next(){
     widget.clickTarget?.call(currentTarget);
     _focusLightKey?.currentState?.next();
+    setState(() {
+      currentController += 1;
+    });
+
 
   }
   void previous() => _focusLightKey?.currentState?.previous();
