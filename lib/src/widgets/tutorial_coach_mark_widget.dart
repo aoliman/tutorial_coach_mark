@@ -79,6 +79,7 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
             pulseAnimationDuration: widget.pulseAnimationDuration,
             clickTarget: (target) {
               widget.clickTarget?.call(target);
+              currentController += 1;
             },
             clickOverlay: (target) {
               widget.clickOverlay?.call(target);
@@ -88,7 +89,6 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
               setState(() {
                 currentTarget = target;
                 showContent = true;
-                currentController += 1;
               });
             },
             removeFocus: () {
