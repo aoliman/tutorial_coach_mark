@@ -83,7 +83,7 @@ class TutorialCoachMarkWidgetState extends State<TutorialCoachMarkWidget> {
             },
             clickOverlay: (target) {
               widget.clickOverlay?.call(target);
-              currentController += 1;
+
             },
             focus: (target) {
               setState(() {

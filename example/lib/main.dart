@@ -156,7 +156,8 @@ class _MyHomePageState extends State<MyHomePage> {
     targets.add(
       TargetFocus(
         identify: "Target 0",
-        keyTarget: keyButton1,
+        keyTarget: keyButton1,enableOverlayTab: true,
+
         contents: [
           TargetContent(
               align: ContentAlign.bottom,
@@ -186,6 +187,7 @@ class _MyHomePageState extends State<MyHomePage> {
       TargetFocus(
         identify: "Target 1",
         keyTarget: keyButton,
+        enableOverlayTab: true,
         color: Colors.purple,
         contents: [
           TargetContent(
@@ -218,6 +220,7 @@ class _MyHomePageState extends State<MyHomePage> {
     targets.add(TargetFocus(
       identify: "Target 2",
       keyTarget: keyButton4,
+      enableOverlayTab: true,
       contents: [
         TargetContent(
             align: ContentAlign.left,
@@ -267,6 +270,7 @@ class _MyHomePageState extends State<MyHomePage> {
     targets.add(TargetFocus(
       identify: "Target 3",
       keyTarget: keyButton5,
+      enableOverlayTab: true,
       contents: [
         TargetContent(
             align: ContentAlign.right,
@@ -295,6 +299,7 @@ class _MyHomePageState extends State<MyHomePage> {
     targets.add(TargetFocus(
       identify: "Target 4",
       keyTarget: keyButton3,
+      enableOverlayTab: true,
       contents: [
         TargetContent(
             align: ContentAlign.top,
@@ -333,6 +338,7 @@ class _MyHomePageState extends State<MyHomePage> {
     targets.add(TargetFocus(
       identify: "Target 5",
       keyTarget: keyButton2,
+      enableOverlayTab: true,
       contents: [
         TargetContent(
             align: ContentAlign.top,
@@ -387,6 +393,9 @@ class _MyHomePageState extends State<MyHomePage> {
       textSkip: "SKIP",
       paddingFocus: 10,
       opacityShadow: 0.8,
+      startItem: 0,
+      itemCount:5 ,
+
       onFinish: () {
         print("finish");
       },
@@ -396,9 +405,9 @@ class _MyHomePageState extends State<MyHomePage> {
       onSkip: (target) {
         print("skip");
       },
-      onClickOverlay: (target) {
-        print('onClickOverlay: $target');
-      },
+       onClickOverlay: (_){
+          tutorialCoachMark.next();
+        }
     )..show();
   }
 }
